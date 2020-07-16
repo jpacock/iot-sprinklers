@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "./build/",
+    "strict": true,
+    "target": "es6"
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
