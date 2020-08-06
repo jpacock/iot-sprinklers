@@ -12,7 +12,7 @@ export function startServer(): void {
   server.use(express.json());
 
   server.get('/health', handleHealthCheck);
-  server.get('/zones/:zoneId/on', handleTurnZoneOn);
+  server.post('/zones/:zoneId/on', handleTurnZoneOn);
 
   server.listen(3000, () =>
     console.log('Server listening on port 3000!'),
