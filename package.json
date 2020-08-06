@@ -4,10 +4,7 @@
   "description": "IoT application to control sprinkler system",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -Rf build",
-    "compile": "tsc -p ./tsconfig.json",
-    "serve:local": "node -r dotenv/config ./build/index.js",
-    "start:local": "run-s clean compile serve:local"
+    "start": "node src"
   },
   "repository": {
     "type": "git",
