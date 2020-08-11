@@ -1,7 +1,8 @@
 module.exports.handleTurnZoneOn = (req, res) => {
   const rpio = require('rpio');
   rpio.init({ mapping: 'gpio' });
-
+  rpio.open(8, rpio.OUTPUT, rpio.HIGH);
+  
   const duration = req.body.duration;
   const zoneId = req.params.zoneId;
   rpio.write(8, rpio.LOW);

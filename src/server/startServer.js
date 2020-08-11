@@ -7,9 +7,6 @@ module.exports.startServer = () => {
   const server = express();
   server.use(express.json());
 
-  const rpio = require('rpio');
-  rpio.open(8, rpio.OUTPUT, rpio.HIGH);
-
   server.get('/health', healthCheckHandler.handleHealthCheck);
   server.post('/zones/:zoneId/on', handleZoneTurnOnHandler.handleTurnZoneOn);
 
