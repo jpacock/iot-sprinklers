@@ -1,1 +1,1 @@
-export * from './startServer';
+require('./startServer').startServer();
