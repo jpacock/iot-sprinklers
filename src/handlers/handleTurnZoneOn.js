@@ -1,6 +1,7 @@
 module.exports.handleTurnZoneOn = (req, res) => {
   const rpio = require('rpio');
-  rpio.init({ mapping: 'gpio' });
+  const run = require('../services/createNewRun');
+
   rpio.open(8, rpio.OUTPUT, rpio.HIGH);
   
   const duration = req.body.duration;
@@ -11,4 +12,7 @@ module.exports.handleTurnZoneOn = (req, res) => {
   rpio.write(8, rpio.HIGH);
   console.log(`Turn zone ${zoneId} off.`);
   res.send(`Turned on zone ${zoneId}`);
+  
+  run.createNewRun();
+
 };
