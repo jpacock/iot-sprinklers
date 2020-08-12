@@ -7,7 +7,7 @@ module.exports.handleTurnZoneOn = (req, res) => {
   const zoneId = req.params.zoneId;
 
   runZone(1, duration);
-  
+
   // createNewRun();
   res.send(`Turned on zone ${zoneId}`);
 };
