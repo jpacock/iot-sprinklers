@@ -1,6 +1,6 @@
 const { runZone } = require('../services/runZone');
 
-module.exports.handleTurnZoneOn = (req, res) => {
+const handleTurnZoneOn = (req, res) => {
   require('../services/runZone');
   // require('../services/createNewRun');
   const duration = req.body.duration;
@@ -10,4 +10,8 @@ module.exports.handleTurnZoneOn = (req, res) => {
 
   // createNewRun();
   res.send(`Turned on zone ${zoneId}`);
+};
+
+module.exports = {
+  handleTurnZoneOn
 };
