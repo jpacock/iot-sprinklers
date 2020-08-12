@@ -14,8 +14,8 @@ module.exports.startServer = () => {
   server.post('/zones/:zoneId/on', handleZoneTurnOnHandler.handleTurnZoneOn);
 
   const CronJob = require('cron').CronJob;
-  const job = new CronJob('0 * * * * *', () => {
-    runZone(1, 30);
+  const job = new CronJob('0 0 4 * * *', () => {
+    runZone(1, 1200);
   }, null, true, 'America/Chicago');
   job.start();
 
