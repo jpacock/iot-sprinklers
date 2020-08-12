@@ -1,18 +1,13 @@
-module.exports.handleTurnZoneOn = (req, res) => {
-  const rpio = require('rpio');
-  const run = require('../services/createNewRun');
+const { runZone } = require('../services/runZone');
 
-  rpio.open(8, rpio.OUTPUT, rpio.HIGH);
-  
+module.exports.handleTurnZoneOn = (req, res) => {
+  require('../services/runZone');
+  // require('../services/createNewRun');
   const duration = req.body.duration;
   const zoneId = req.params.zoneId;
-  rpio.write(8, rpio.LOW);
-  rpio.sleep(duration);
-  console.log(`Turn zone ${zoneId} on for ${duration} seconds.`);
-  rpio.write(8, rpio.HIGH);
-  console.log(`Turn zone ${zoneId} off.`);
-  res.send(`Turned on zone ${zoneId}`);
-  
-  run.createNewRun();
 
+  runZone(1, duration);
+  
+  // createNewRun();
+  res.send(`Turned on zone ${zoneId}`);
 };
