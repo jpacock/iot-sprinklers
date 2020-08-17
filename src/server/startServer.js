@@ -1,3 +1,4 @@
+const { handleClearWater } = require('../handlers/handleClearWater.js');
 const { handleHealthCheck } = require('../handlers/handleHealthCheck.js');
 const { handleTurnZoneOn } = require('../handlers/handleTurnZoneOn');
 const { runZone } = require('../services/runZone.js');
@@ -10,6 +11,7 @@ const startServer = () => {
   const server = express();
   server.use(express.json());
 
+  server.get('/clearWater', (req, res) => handleClearWater(req,res));
   server.get('/health', (req, res) => handleHealthCheck(req, res));
   server.post('/zones/:zoneId/on', (req, res) => handleTurnZoneOn(req, res));
 
