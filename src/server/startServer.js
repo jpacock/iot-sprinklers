@@ -11,12 +11,12 @@ const startServer = () => {
   const server = express();
   server.use(express.json());
 
-  server.get('/clearWater', (req, res) => handleClearWater(req,res));
+  server.get('/clearWater', (req, res) => handleClearWater(req, res));
   server.get('/health', (req, res) => handleHealthCheck(req, res));
   server.post('/zones/:zoneId/on', (req, res) => handleTurnZoneOn(req, res));
 
   const CronJob = require('cron').CronJob;
-  const job = new CronJob('0 30 5 * * 2,4,6', () => {
+  const job = new CronJob('0 60 5 * * 2,6', () => {
     runZone(1, 1800);
   }, null, true, 'America/Chicago');
   job.start();
