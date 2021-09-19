@@ -12,6 +12,7 @@ const startServer = () => {
   server.use(express.json());
 
   server.get('/clearWater', (req, res) => handleClearWater(req, res));
+
   server.get('/health', (req, res) => handleHealthCheck(req, res));
   server.post('/zones/:zoneId/on', (req, res) => handleTurnZoneOn(req, res));
 

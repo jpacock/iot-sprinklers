@@ -1,7 +1,7 @@
 const { turnOn } = require('../rpi/turnOn');
 
 const runZone = (zoneId, duration) => {
-  turnOn(duration);
+  turnOn(zoneId, duration);
 };
 
 module.exports = {
