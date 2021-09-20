@@ -1,7 +1,3 @@
-const handleHealthCheck = (req, res) => {
+export function handleHealthCheck(req, res) {
   res.send('OK');
-};
-
-module.exports = {
-  handleHealthCheck
 };

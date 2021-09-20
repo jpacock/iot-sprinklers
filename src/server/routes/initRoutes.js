@@ -1,16 +1,15 @@
-import handleHealthCheck from '../../handlers/handleHealthCheck';
-require('../../handlers');
+import {
+  handleHealthCheck,
+  handleGetRuns,
+  handleStartRun,
+  handleStopZone,
+} from '../../handlers';
 
 export function initRoutes(server) {
-  // health
   server.get('/health', handleHealthCheck);
-
-  // categories
-  server.get('/categories', handleGetCategoriesRequest)
-
-  // recipes
-  server.get('/recipes/:name', handleGetRecipeRequest);
-  server.get('/recipes/categories/:category', handleGetRecipesByCategoryRequest);
+  server.get('/runs', handleGetRuns);
+  server.post('/runs/:zoneId/start', handleStartRun);
+  server.post('/zones/:zoneId/stop', handleStopZone);
 
   return server;
 }
