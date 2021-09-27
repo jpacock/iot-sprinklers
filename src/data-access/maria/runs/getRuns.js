@@ -17,9 +17,9 @@ export async function getRuns() {
         id: result.id,
         initiatedBy: result.initiated_by,
         zone: result.zone,
-        startDateTime: startDateTime.toISOString(),
-        scheduledEndDateTime: scheduledEndDateTime.toISOString(),
-        actualEndDateTime: actualEndDateTime.toISOString(),
+        startDateTime: startDateTime.format(),
+        scheduledEndDateTime: scheduledEndDateTime.format(),
+        actualEndDateTime: actualEndDateTime.format(),
         duration,
       };
     });
