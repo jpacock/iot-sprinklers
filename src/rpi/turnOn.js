@@ -8,8 +8,6 @@ export function turnOn(zone) {
   console.log('zone Pin', zonePin);
   console.log('main Pin', mainPin);
   // setup pin out status
-  rpio.open(zonePin, rpio.OUTPUT, rpio.HIGH);
-  rpio.open(mainPin, rpio.OUTPUT, rpio.HIGH);
 
   // set pins to low
   rpio.write(mainPin, rpio.LOW);

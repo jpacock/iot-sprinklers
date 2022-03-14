@@ -6,7 +6,13 @@ export function handleStartRun(req, res) {
   const data = req.body;
 
   // validate body
-  startRun(data, 'manual');
+  // for (const run in data) {
+  //   if (i)) {
+  //     throw new Error('Bad Request!');
+  //   }
+  // }
 
-  res.send('Running zones');
+  const response = startRun(data, 'manual');
+
+  res.json(response);
 };

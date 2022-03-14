@@ -1,15 +1,20 @@
 import {
   handleHealthCheck,
   handleGetRuns,
+  handleGetZonesStatus,
+  handleGetZoneStatusStream,
   handleStartRun,
-  handleStopZone,
+  handleStopRun,
 } from '../../handlers';
 
 export function initRoutes(server) {
   server.get('/health', handleHealthCheck);
+
   server.get('/runs', handleGetRuns);
   server.post('/runs/start', handleStartRun);
-  server.post('/zones/:zoneId/stop', handleStopZone);
+  server.post('/runs/stop', handleStopRun);
+  server.get('/zones/status', handleGetZonesStatus);
+  server.get('/zones/status/stream', handleGetZoneStatusStream);
 
   return server;
 }

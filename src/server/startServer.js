@@ -1,8 +1,10 @@
 import cors from 'cors';
 import express from 'express';
 
-// import { getPrograms } from '../data-access/maria/programs';
 import { initRoutes } from './routes';
+import { configureZones } from '../rpi';
+
+const clients = [];
 
 export async function startServer() {
   const server = express();
@@ -10,12 +12,9 @@ export async function startServer() {
   server.use(express.json());
 
   initRoutes(server);
+  configureZones();
 
   server.listen(3000, () =>
     console.log('Server listening on port 3000!'),
   );
 };
-
-// module.exports = {
-//   startServer
-// };

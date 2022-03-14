@@ -5,6 +5,7 @@ import { turnOff, turnOn } from '../../rpi';
 
 export function startRun(runlist, initiatedBy) {
   // create run object
+  const response = [];
   let start = new Date();
   let accumulativeDuration = 0;
   for (const r of runlist) {
@@ -18,6 +19,8 @@ export function startRun(runlist, initiatedBy) {
     };
     // log to database
     createRun(run);
+
+    response.push(run);
 
     setTimeout(() => {
       turnOn(run.zone);
@@ -33,4 +36,6 @@ export function startRun(runlist, initiatedBy) {
     start = scheduledEnd;
     accumulativeDuration += r.duration;
   }
+
+  return response;
 }
