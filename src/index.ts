@@ -1,6 +1,6 @@
 import cors from 'cors';
 import express from 'express';
-import { NextFunction, Request, Response, } from 'express';
+import { Request, Response, } from 'express';
 import { get, isEmpty, omit } from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
@@ -113,7 +113,7 @@ function cancelInterval(runId: string, intervalId: string) {
   }
 }
 
-function getRuns(req: Request, res: Response) {
+function getRuns(res: Response) {
   res.status(200).json(runs.map(run => ({
     ...run,
     intervals: run.intervals.map(interval => omit(interval, 'startTimerId', 'stopTimerId')),

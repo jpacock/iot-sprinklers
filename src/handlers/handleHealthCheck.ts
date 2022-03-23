@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
-export function handleHealthCheck(req: Request, res: Response, clients: any) {
+import { Response } from 'express';
+export function handleHealthCheck(res: Response) {
   res.send('OK');
 };
