@@ -2,9 +2,9 @@ import rpio from 'rpio';
 
 import { getZonePin } from '../util/getZonePin';
 
-export function turnOn(zone) {
-  const zonePin = getZonePin(zone);
-  const mainPin = getZonePin('main');
+export function turnOn(zone: string) {
+  const zonePin = getZonePin(zone) as number;
+  const mainPin = getZonePin('main') as number;
   console.log('zone Pin', zonePin);
   console.log('main Pin', mainPin);
   // setup pin out status

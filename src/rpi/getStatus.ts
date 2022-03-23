@@ -1,12 +1,11 @@
 import rpio from 'rpio';
 
-import { getZonePin } from '../util/getZonePin';
+import { getZonePin } from '../util';
 
-export function getZonesStatus() {
+export function getStatus() {
   const results = ['1', '2', '3', '4', 'main'].map(zone => ({
     zone: zone,
-    state: rpio.read(getZonePin(zone)),
+    state: rpio.read((getZonePin(zone) as number)),
   }));
-
   return results;
 }

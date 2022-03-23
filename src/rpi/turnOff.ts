@@ -2,9 +2,9 @@ import rpio from 'rpio';
 
 import { getZonePin } from '../util/getZonePin';
 
-export function turnOff(zone) {
-  const zonePin = getZonePin(zone);
-  const mainPin = getZonePin('main');
+export function turnOff(zone: string) {
+  const zonePin = getZonePin(zone) as number;
+  const mainPin = getZonePin('main') as number;
 
   // Turn off by going pin high
   rpio.write(mainPin, rpio.HIGH);

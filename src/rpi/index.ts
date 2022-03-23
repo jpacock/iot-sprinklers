@@ -1,4 +1,4 @@
 export * from './configureZones';
-export * from './getZonesStatus';
-export * from './turnOn';
+export * from './getStatus';
 export * from './turnOff';
+export * from './turnOn';
