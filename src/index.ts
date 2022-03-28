@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import { Request, Response, } from 'express';
-import { get, isEmpty, omit } from 'lodash';
+import { get, isEmpty, isUndefined, omit } from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
 
@@ -96,21 +96,19 @@ function completeInterval(runId: string, intervalId: string) {
 
 function cancelInterval(runId: string, intervalId: string) {
   const run = runs.find(run => run.id === runId);
-  if (run) {
-    const interval = run.intervals.find(interval => interval.id === intervalId);
-    if (interval) {
-      if(!get(interval, 'completed', true)) {
-        interval.cancelled = true;
+  if (isUndefined(run)) return;
 
-        if (get(interval, 'started', false)) {
-          turnOff(interval.zoneId);
-          sendStatusToAll();
-        }
-        clearTimeout(interval.startTimerId);
-        clearTimeout(interval.stopTimerId);
-      }
-    }
+  const interval = run.intervals.find(interval => interval.id === intervalId);
+  if (isUndefined(interval) || get(interval, 'completed', false)) return;
+
+  interval.cancelled = true;
+  if (get(interval, 'started', false)) {
+    turnOff(interval.zoneId);
+    sendStatusToAll();
   }
+
+  clearTimeout(interval.startTimerId);
+  clearTimeout(interval.stopTimerId);
 }
 
 function getRuns(res: Response) {
@@ -118,6 +116,17 @@ function getRuns(res: Response) {
     ...run,
     intervals: run.intervals.map(interval => omit(interval, 'startTimerId', 'stopTimerId')),
   })))
+}
+
+function getRun(req: Request, res: Response) {
+  const { id } = req.params;
+  const run = runs.find(run => run.id === id);
+  if(!run) return;
+
+  res.status(200).json({
+    ...run,
+    intervals: run.intervals.map(interval => omit(interval, 'startTimerId', 'stopTimerId')),
+  });
 }
 
 function startRun(req: Request, res: Response) {
@@ -148,24 +157,21 @@ function startRun(req: Request, res: Response) {
 
   runs.push(newRun);
   
-  res.status(200).send(newRun.id);
-  return;
+  res.status(200).json({ id: newRun.id });
 }
 
 function stopRun(req: Request, res: Response): void {
   const { runId } = req.query;
   const run = runs.find(run => run.id === runId);
-  if (run) {
-    run.intervals.forEach((interval) => {
-      cancelInterval(run.id, interval.id);
-    })
-    res.status(200).json({run: run.id})
-  } else {
-    throw Error()
-  }
+  if (!run) throw Error();
+  run.intervals.forEach((interval) => {
+    cancelInterval(run.id, interval.id);
+  })
+  res.status(200).json({ run: run.id })
 }
 
 server.get('/runs', getRuns);
+server.get('/runs/:id', getRun);
 server.post('/runs/start', startRun);
 server.post('/runs/stop', stopRun);
 
