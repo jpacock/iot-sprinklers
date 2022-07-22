@@ -2,6 +2,7 @@ import { scheduleJob,  } from 'node-schedule';
 import cron from 'cron-validate';
 
 import { IProgram } from '../../../types';
+import { getZoneDurationByUnit } from '..//util';
 import { completeInterval } from './completeInterval';
 import { startInterval } from './startInterval';
 
@@ -17,13 +18,14 @@ export function createCronForProgram(program: IProgram): void {
 
     for (let i = 0; i < program.runTimes.length; i += 1) {
       const runTime = program.runTimes[i];
+      const duration = getZoneDurationByUnit(runTime.zoneId, runTime.measurement, program.runTimeUnit)
       setTimeout(() => {
         startInterval(runTime, () => {});
       }, accumulatedDuration * 1000);
       setTimeout(() => {
         completeInterval(runTime, () => {});
-      }, (accumulatedDuration + runTime.measurement) * 1000);
-      accumulatedDuration += runTime.measurement;
+      }, (accumulatedDuration + duration) * 1000);
+      accumulatedDuration += duration;
     }
   });
 }
