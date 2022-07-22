@@ -1,0 +1,10 @@
+{
+  "name": "@iot-sprinklers/types",
+  "version": "1.0.0",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "compile": "tsc"
+  }
+}

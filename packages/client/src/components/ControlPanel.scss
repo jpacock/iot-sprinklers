@@ -1,0 +1,70 @@
+.control-panel {
+  &__actions {
+    margin-top: 40px;
+  }
+
+  &__container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  &__header {
+    align-items: center;
+    display: flex;
+    height: 150px;
+    justify-content: center;
+  }
+
+  &__item {
+    align-items: center;
+    border-bottom: solid 1px lightgray;
+    display: flex;
+    font-size: 16px;
+    height: 90px;
+    width: 100%;
+
+    &__arrow {
+      transform: scale(1.5);
+    }
+
+    &__input {
+      margin-right: 10px;
+      width: 150px;
+      
+      &__unit {
+        padding-left: 10px;
+      }
+    }
+
+    &__name {
+      font-size: 12px;
+      padding-left: 10px;
+    }
+
+    &__run-minutes {
+      margin-right: 10px;
+      
+    }
+  }
+
+  &__running-label {
+    color: green;
+    padding-left: 10px;
+  }
+
+  &__title {
+    margin-bottom: 10px;
+  }
+
+  &__unit-toggle {
+    margin-bottom: 50px;
+  }
+}
+
+.spacer {
+  flex: 1
+}
