@@ -53,14 +53,14 @@ const main = async () => {
     const { id } = req.params;
     const updatedProgram = req.body as IUpdateProgramRequest;
 
-    if (cron(updatedProgram.startDaysOfWeek).isError()) return next(new createError.BadRequest());
+    const cronStr = `${updatedProgram.startMinutes} ${updatedProgram.startHours} * * ${updatedProgram.startDaysOfWeek}`;
+    if (cron(cronStr).isError()) {
+      return next(new createError.BadRequest(`Cron format '${cronStr}' is invalid.`));
+    }
 
     if (updatedProgram.runTimes) {
-      try {
-        await updateProgram(id, updatedProgram);
-        res.status(200).end();
-      } catch (err) {
-      }
+      await updateProgram(id, updatedProgram);
+      res.status(200).end();
     }
     return next();
   });
@@ -72,6 +72,15 @@ const main = async () => {
     await deleteProgram(id);
 
     res.status(204).end();
+  });
+
+  // Error handler //
+  server.use((error: any, _: any, res: any, next: any) => {
+    res.status(error.status).send({
+      code: error.status,
+      message: error.message,
+    });
+    next();
   });
 
   server.listen(3000, () => console.log('Server listening on port 3000!'));

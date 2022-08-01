@@ -1,5 +1,5 @@
 import { ICreateProgramRequest, ICreateProgramResponse } from '@iot-sprinklers/types';
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import createError from 'http-errors';
 
 import { createProgram as createProgramInDb } from '../data-access/maria/programs';
@@ -8,7 +8,7 @@ import { createCronForProgram } from './createCronForProgram';
 export async function createProgram(
   newProgram: ICreateProgramRequest,
 ): Promise<ICreateProgramResponse> {
-  const id = uuid();
+  const id = v4();
   const program = {
     ...newProgram,
     id,
