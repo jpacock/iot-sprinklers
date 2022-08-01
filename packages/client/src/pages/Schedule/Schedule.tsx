@@ -1,5 +1,6 @@
-import { Container, Fab } from "@mui/material"; 
+import { Container, Fab, IconButton, Snackbar } from "@mui/material"; 
 import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { omit } from 'lodash';
 import React, { useEffect, useState } from 'react';
@@ -15,6 +16,8 @@ const { sprinklerServiceUrl } = getConfig();
 export default function Schedule() {
   const [list, setList]: any[] = useState([]);
   const [editorOpen, setEditorOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(''); 
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,12 +28,19 @@ export default function Schedule() {
   }, []);
 
   const updateProgram = async (updatedProgram: IProgram) => {
-    const result = await axios.put(`${sprinklerServiceUrl}/program/${updatedProgram.id}`, updatedProgram); 
-    if (result.status === 200) {
-      setList((prevState: IProgram[]) => prevState.map((program) => {
-        if (program.id === updatedProgram.id) return updatedProgram;
-        return program;
-      }));
+
+    try {
+      const result = await axios.put(`${sprinklerServiceUrl}/program/${updatedProgram.id}`, updatedProgram); 
+      
+      if (result.status === 200) {
+        setList((prevState: IProgram[]) => prevState.map((program) => {
+          if (program.id === updatedProgram.id) return updatedProgram;
+          return program;
+        }));
+      }
+    } catch(err) {
+      setErrorMessage('Error updating program.')
+      setNotificationOpen(true);
     }
   };
 
@@ -52,6 +62,14 @@ export default function Schedule() {
     setEditorOpen(false);
   };
 
+  const handleCloseNotification = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setNotificationOpen(false);
+  };
+
   const handleDeleteProgram = async (id: string) => {
     const result = await axios.delete(`${sprinklerServiceUrl}/program/${id}`);
     if (result.status === 204) {
@@ -59,11 +77,30 @@ export default function Schedule() {
     }
   };
 
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseNotification}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
   return (
     <>
-      <Container className="schedule__container">
+      <Container className="schedule__container" >
         { list.map((program: IProgram) => <ScheduleItem key={program.id} program={program} deleteProgram={handleDeleteProgram} updateProgram={updateProgram}/>)}
-        <Fab color="primary" aria-label="add" sx={{alignSelf: 'center', mt: 5 }} onClick={() => setEditorOpen(true)}>
+        <Snackbar
+          open={notificationOpen}
+          autoHideDuration={6000}
+          message={errorMessage}
+          action={action}
+        />
+        <Fab color="primary" aria-label="add" sx={{ position: 'absolute', bottom: 30, right: 30 }} onClick={() => setEditorOpen(true)}>
           <AddIcon />
         </Fab>
       </Container>

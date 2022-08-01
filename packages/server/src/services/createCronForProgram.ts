@@ -1,8 +1,8 @@
-import { scheduleJob,  } from 'node-schedule';
+import { IProgram } from '@iot-sprinklers/types';
+import { scheduleJob } from 'node-schedule';
 import cron from 'cron-validate';
 
-import { IProgram } from '../../../types';
-import { getZoneDurationByUnit } from '..//util';
+import { getZoneDurationByUnit } from '../util';
 import { completeInterval } from './completeInterval';
 import { startInterval } from './startInterval';
 
@@ -11,14 +11,18 @@ export function createCronForProgram(program: IProgram): void {
   if (!program.active) return;
 
   const cronStr = `${program.startMinutes} ${program.startHours} * * ${program.startDaysOfWeek}`;
-  if ((cron(cronStr).isError())) console.log('Cron not valid.', cronStr);
+  if ((cron(cronStr).isError())) throw new Error('Cron not valid.');
 
   scheduleJob(program.id, cronStr, () => {
     let accumulatedDuration = 0;
 
     for (let i = 0; i < program.runTimes.length; i += 1) {
       const runTime = program.runTimes[i];
-      const duration = getZoneDurationByUnit(runTime.zoneId, runTime.measurement, program.runTimeUnit)
+      const duration = getZoneDurationByUnit(
+        runTime.zoneId,
+        runTime.measurement,
+        program.runTimeUnit,
+      );
       setTimeout(() => {
         startInterval(runTime, () => {});
       }, accumulatedDuration * 1000);

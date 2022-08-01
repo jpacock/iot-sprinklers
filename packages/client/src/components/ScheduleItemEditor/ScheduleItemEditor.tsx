@@ -100,7 +100,7 @@ export default function ScheduleItemEditor({
 
   let deleteButton;
   if (deleteProgram) {
-    deleteButton = <Button color="error" variant="outlined" onClick={() => deleteProgram(program.id)} >Delete Program</Button>
+    deleteButton = <Button color="error" variant="outlined" sx={{}} onClick={() => deleteProgram(program.id)}>Delete Program</Button>
   }
 
   const handleAddRunTime = () => {
@@ -149,6 +149,7 @@ export default function ScheduleItemEditor({
   };
 
   const handleSave = () => {
+    // const formattedsDaysOfWeek =
     saveProgram({
       ...program,
       displayName,
@@ -282,10 +283,10 @@ export default function ScheduleItemEditor({
                   ))
                 }
               </List>
-              <Fab color="primary" aria-label="add" sx={{alignSelf: 'center', mt: 5 }} onClick={handleAddRunTime}>
+              <Fab color="primary" aria-label="add" sx={{alignSelf: 'flex-end', mt: 3 }} onClick={handleAddRunTime}>
                 <AddIcon />
               </Fab>
-              
+
               {deleteButton}
               <Box sx={{minHeight: 3}}></Box>
             </>

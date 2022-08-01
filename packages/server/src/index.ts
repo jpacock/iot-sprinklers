@@ -1,7 +1,9 @@
+import { ICreateProgramRequest, IUpdateProgramRequest } from '@iot-sprinklers/types';
 import cors from 'cors';
+import cron from 'cron-validate';
 import express from 'express';
+import createError from 'http-errors';
 
-import { ICreateProgramRequest, IUpdateProgramRequest } from '../../types';
 import { getPrograms, getProgramById } from './data-access/maria/programs';
 import { initPins } from './rpi';
 import {
@@ -20,13 +22,15 @@ const main = async () => {
 
   existingPrograms.forEach((program) => createCronForProgram(program));
 
-  // Create programs //
-  server.post('/program', async (req, res) => {
-    const program = req.body as ICreateProgramRequest;
-
-    const response = await createProgram(program);
-
-    res.status(201).send(response);
+  // Create program //
+  server.post('/program', async (req, res, next) => {
+    try {
+      const program = req.body as ICreateProgramRequest;
+      const response = await createProgram(program);
+      res.status(201).send(response);
+    } catch (err) {
+      next(err);
+    }
   });
 
   // Get Programs //
@@ -45,12 +49,20 @@ const main = async () => {
   });
 
   // Update program //
-  server.put('/program/:id', async (req, res) => {
+  server.put('/program/:id', async (req, res, next) => {
     const { id } = req.params;
     const updatedProgram = req.body as IUpdateProgramRequest;
-    await updateProgram(id, updatedProgram);
 
-    res.status(200).end();
+    if (cron(updatedProgram.startDaysOfWeek).isError()) return next(new createError.BadRequest());
+
+    if (updatedProgram.runTimes) {
+      try {
+        await updateProgram(id, updatedProgram);
+        res.status(200).end();
+      } catch (err) {
+      }
+    }
+    return next();
   });
 
   // Delete program //

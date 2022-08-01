@@ -1,6 +1,7 @@
+import { ICreateProgramRequest, ICreateProgramResponse } from '@iot-sprinklers/types';
 import { uuid } from 'uuidv4';
+import createError from 'http-errors';
 
-import { ICreateProgramRequest, ICreateProgramResponse } from '../../../types';
 import { createProgram as createProgramInDb } from '../data-access/maria/programs';
 import { createCronForProgram } from './createCronForProgram';
 
@@ -13,8 +14,12 @@ export async function createProgram(
     id,
   };
 
-  await createProgramInDb(program);
-  if (program.active) createCronForProgram(program);
+  try {
+    await createProgramInDb(program);
+    if (program.active) createCronForProgram(program);
+  } catch (err) {
+    throw createError('Failed to create program.');
+  }
 
   return { id };
 }
