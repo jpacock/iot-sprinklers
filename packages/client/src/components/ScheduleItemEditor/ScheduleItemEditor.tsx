@@ -6,6 +6,7 @@ import {
   Dialog,
   Fab,
   FormControl,
+  Grid,
   IconButton,
   InputAdornment,
   List,
@@ -33,6 +34,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { IProgram, IRunTime, RunTimeUnitType } from '@iot-sprinklers/types';
 import './ScheduleItemEditor.scss';
+import { getZoneDurationByUnit } from '../../util/getZoneDurationByUnit';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -70,6 +72,7 @@ export default function ScheduleItemEditor({
   const [days, setDays] = useState([] as string[]);
   const [displayName, setDisplayName] = useState('');
   const [time, setTime] = useState<Date | null>(new Date());
+  const [endTime, setEndTime] = useState<Date | null>(new Date());
   const [runTimes, setRunTimes] = useState(program.runTimes.map(runTime => ({...runTime, measurement: runTime.measurement.toString()})));
   const [runTimeUnit, setRunTimeUnit] = useState(program.runTimeUnit);
 
@@ -96,6 +99,18 @@ export default function ScheduleItemEditor({
     if (open) initializeDialog();
     // eslint-disable-next-line
   }, [open])
+
+  useEffect(() => {
+    let secondsToAdd = 0;
+    runTimes.forEach((runTime) => {
+      if (runTime.zoneId !== '') {
+        const { zoneId, measurement } = runTime;
+        secondsToAdd += getZoneDurationByUnit(zoneId, Number(measurement), runTimeUnit);
+      }
+    });
+
+    setEndTime(moment(time).add(secondsToAdd, 's').toDate());
+  }, [runTimes, runTimeUnit, time]); 
 
 
   let deleteButton;
@@ -164,6 +179,7 @@ export default function ScheduleItemEditor({
 
   const handleTimeChange = (newValue: Date | null) => {
     setTime(newValue);
+
   };
 
   return (
@@ -217,17 +233,31 @@ export default function ScheduleItemEditor({
               value={displayName}
               onChange={(event) => {
                 setDisplayName(event.target.value)
-
               }}
             />
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <TimePicker
-                label="Start Time"
-                value={time}
-                onChange={handleTimeChange}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <TimePicker
+                    label="Start Time"
+                    value={time}
+                    onChange={handleTimeChange}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={6}>
+                <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <TimePicker
+                    disabled
+                    label="End Time"
+                    value={endTime}
+                    onChange={handleTimeChange}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </Grid>
+            </Grid>
             <>
               <FormControl fullWidth>
                 <ToggleButtonGroup
