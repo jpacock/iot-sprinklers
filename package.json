@@ -1,6 +1,9 @@
 {
   "name": "iot-sprinklers",
   "private": true,
+  "scripts": {
+    "build": "yarn workspaces foreach run build"
+  },
   "workspaces": [
     "packages/*"
   ]
