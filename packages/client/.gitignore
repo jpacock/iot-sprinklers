@@ -1,3 +1,4 @@
+build
 node_modules
 .log
 .nyc_output
@@ -9,6 +10,7 @@ dist
 .tmp
 db/couchdb
 .idea
+
 
 # ESLint
 .eslintcache
