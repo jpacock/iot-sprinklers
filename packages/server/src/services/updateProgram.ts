@@ -1,4 +1,4 @@
-import { IUpdateProgramRequest } from '@iot-sprinklers/types';
+import { IUpdateProgramRequest } from 'shared/build';
 
 import { updateProgram as updateProgramInDb } from '../data-access/maria/programs';
 import { createCronForProgram } from './createCronForProgram';

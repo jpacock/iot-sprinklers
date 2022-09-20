@@ -1,4 +1,4 @@
-import { IProgram } from '@iot-sprinklers/types';
+import { IProgram } from 'shared/build';
 import { scheduleJob } from 'node-schedule';
 import cron from 'cron-validate';
 

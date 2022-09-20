@@ -1,0 +1,7 @@
+{
+  "name": "iot-sprinklers",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

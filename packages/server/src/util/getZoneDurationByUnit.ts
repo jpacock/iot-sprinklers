@@ -1,10 +1,9 @@
-import { RunTimeUnitType } from '@iot-sprinklers/types/RunTimeUnitType';
-
+import { RunTimeUnitType } from 'shared/build';
 const SECONDS_PER_MINUTE = 60;
-const ZONE_1_MINUTES_PER_INCH = 97.4;
+const ZONE_1_MINUTES_PER_INCH = 100;
 const ZONE_2_MINUTES_PER_INCH = 30;
-const ZONE_3_MINUTES_PER_INCH = 64.3;
-const ZONE_4_MINUTES_PER_INCH = 64.3;
+const ZONE_3_MINUTES_PER_INCH = 100;
+const ZONE_4_MINUTES_PER_INCH = 100;
 
 export function getZoneDurationByUnit(zoneId: string, measurement: number, unit: string) {
   switch (unit) {

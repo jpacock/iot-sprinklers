@@ -1,4 +1,4 @@
-import { ICreateProgramRequest, ICreateProgramResponse } from '@iot-sprinklers/types';
+import { ICreateProgramRequest, ICreateProgramResponse } from 'shared/build';
 import { v4 } from 'uuid';
 import createError from 'http-errors';
 

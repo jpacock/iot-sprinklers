@@ -1,5 +1,5 @@
 import { IRunTime } from '../IRunTime';
-import { RunTimeUnitType } from '../RunTimeUnitType';
+import { RunTimeUnitType } from '..//RunTimeUnitType';
 
 export interface IUpdateProgramRequest {
   id: string,

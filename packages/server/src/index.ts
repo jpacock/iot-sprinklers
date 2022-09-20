@@ -1,4 +1,4 @@
-import { ICreateProgramRequest, IUpdateProgramRequest } from '@iot-sprinklers/types';
+import { ICreateProgramRequest, IUpdateProgramRequest } from 'shared/build';
 import cors from 'cors';
 import cron from 'cron-validate';
 import express from 'express';

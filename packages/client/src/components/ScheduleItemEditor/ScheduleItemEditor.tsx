@@ -32,7 +32,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { IProgram, IRunTime, RunTimeUnitType } from '@iot-sprinklers/types';
+import { IProgram, RunTimeUnitType } from 'shared/build';
 import './ScheduleItemEditor.scss';
 import { getZoneDurationByUnit } from '../../util/getZoneDurationByUnit';
 

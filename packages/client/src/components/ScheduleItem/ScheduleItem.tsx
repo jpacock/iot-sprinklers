@@ -1,9 +1,10 @@
-import React from 'react';
 import { Card, DialogTitle } from '@mui/material';
 import Button from '@mui/material/Button';
 import Switch from '@mui/material/Switch';
+import React from 'react';
+import { IProgram } from 'shared/build';
 
-import type { IProgram } from '@iot-sprinklers/types';
+
 import './ScheduleItem.scss';
 import ScheduleItemEditor from '../ScheduleItemEditor/ScheduleItemEditor';
 

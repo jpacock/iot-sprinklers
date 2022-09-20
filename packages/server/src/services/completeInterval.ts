@@ -1,4 +1,4 @@
-import { IRunTime } from '../../../types';
+import { IRunTime } from 'shared/build';
 import { turnOff } from '../rpi/turnOff';
 
 export function completeInterval(runTime: IRunTime, cb: () => void) {

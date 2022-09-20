@@ -1,4 +1,4 @@
-import { IRunTime } from '../../../types';
+import { IRunTime } from 'shared/build';
 import { turnOn } from '../rpi';
 
 export function startInterval(runTime: IRunTime, cb: () => void) {

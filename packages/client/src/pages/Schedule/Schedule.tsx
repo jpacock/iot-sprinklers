@@ -5,10 +5,9 @@ import axios from 'axios';
 import { omit } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
-import { IProgram } from '@iot-sprinklers/types';
+import { IProgram } from 'shared/build';
 import ScheduleItem from '../../components/ScheduleItem/ScheduleItem';
 import { getConfig } from '../../config/get-config';
-import './Schedule.scss';
 import ScheduleItemEditor from "../../components/ScheduleItemEditor/ScheduleItemEditor";
 
 const { sprinklerServiceUrl } = getConfig();
@@ -21,8 +20,10 @@ export default function Schedule() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`${sprinklerServiceUrl}/program`)
-      setList(response.data);
+      const response = await axios.get(`${sprinklerServiceUrl}/program`);
+      const programs = response.data as IProgram[];
+      programs.sort((a, b) => a.displayName > b.displayName ? 1 : -1);
+      setList(programs);
     }
     fetchData();
   }, []);
