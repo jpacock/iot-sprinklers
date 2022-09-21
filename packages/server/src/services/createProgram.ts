@@ -1,4 +1,4 @@
-import { ICreateProgramRequest, ICreateProgramResponse } from 'shared/build';
+import { ICreateProgramRequest, ICreateProgramResponse } from '../../../shared';
 import { v4 } from 'uuid';
 import createError from 'http-errors';
 

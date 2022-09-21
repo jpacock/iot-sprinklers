@@ -5,7 +5,7 @@ import axios from 'axios';
 import { omit } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
-import { IProgram } from 'shared/build';
+import { IProgram } from '../../../../shared';
 import ScheduleItem from '../../components/ScheduleItem/ScheduleItem';
 import { getConfig } from '../../config/get-config';
 import ScheduleItemEditor from "../../components/ScheduleItemEditor/ScheduleItemEditor";

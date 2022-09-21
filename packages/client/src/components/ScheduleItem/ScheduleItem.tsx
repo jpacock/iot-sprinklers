@@ -2,7 +2,7 @@ import { Card, DialogTitle } from '@mui/material';
 import Button from '@mui/material/Button';
 import Switch from '@mui/material/Switch';
 import React from 'react';
-import { IProgram } from 'shared/build';
+import { IProgram } from '../../../../shared';
 
 
 import './ScheduleItem.scss';

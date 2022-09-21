@@ -1,4 +1,5 @@
-import { IProgram, IProgramDoc } from 'shared/build';
+import { IProgram, IProgramDoc } from '../../../../../shared';
+
 import { getDB } from '../MariaDBClientManager';
 
 export async function getProgramById(id: string): Promise<IProgram> {

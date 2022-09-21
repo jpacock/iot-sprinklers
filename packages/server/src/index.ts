@@ -1,8 +1,9 @@
-import { ICreateProgramRequest, IUpdateProgramRequest } from 'shared/build';
 import cors from 'cors';
 import cron from 'cron-validate';
 import express from 'express';
 import createError from 'http-errors';
+
+import { ICreateProgramRequest, IUpdateProgramRequest } from '../../shared';
 
 import { getPrograms, getProgramById } from './data-access/maria/programs';
 import { initPins } from './rpi';
