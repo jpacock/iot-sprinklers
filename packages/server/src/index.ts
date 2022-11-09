@@ -10,6 +10,8 @@ import { initPins } from './rpi';
 import {
   createProgram, createCronForProgram, deleteProgram, updateProgram,
 } from './services';
+import { getStatus } from './services/getStatus';
+import { startManual, stopManual } from './services/manual';
 
 const main = async () => {
   initPins();
@@ -73,6 +75,29 @@ const main = async () => {
     await deleteProgram(id);
 
     res.status(204).end();
+  });
+
+  // Get Zone Status //
+  server.get('/status/', (req, res) => {
+    res.status(200).send(getStatus());
+  });
+
+  // Start Manual //
+  server.post('/manual/:zoneId/start', async (req, res) => {
+    const { zoneId } = req.params;
+    
+    startManual(zoneId);
+
+    res.status(200).end();
+  });
+
+  // Start Manual //
+  server.post('/manual/:zoneId/stop', async (req, res) => {
+    const { zoneId } = req.params;
+    
+    stopManual(zoneId);
+
+    res.status(200).end();
   });
 
   // Error handler //
