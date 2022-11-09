@@ -1,4 +1,4 @@
-import { Card, DialogTitle } from '@mui/material';
+import { Card, DialogTitle, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Switch from '@mui/material/Switch';
 import React from 'react';
@@ -29,9 +29,9 @@ export default function ScheduleItem({program, deleteProgram, updateProgram}: Pr
   return (
     <>
       <Card className="schedule-item">
-        <DialogTitle id="alert-dialog-title" sx={{ flexGrow: 1 }}>
-            {program.displayName}
-        </DialogTitle>
+        <Typography id="alert-dialog-title" p={1} sx={{ flexGrow: 1 }} variant="h6">
+            {program.displayName.substring(0,15)}
+        </Typography>
         <Button variant="outlined" sx={{ mr: 2 }} onClick={handleClickOpen}>
           Edit
         </Button>

@@ -1,4 +1,6 @@
 
+import { faDroplet } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   AppBar,
   Box,
@@ -11,12 +13,18 @@ import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Routes
 } from 'react-router-dom';
 
 import './App.css';
-import ControlPanel from './components/ControlPanel';
-import Schedule from './pages/Schedule/Schedule'
+
+import { Sidebar } from './components/Sidebar/Sidebar';
+import { 
+  History,
+  Manual,
+  RunOnce,
+  Schedule,
+} from './pages';
 
 const theme = createTheme({
   palette: {
@@ -34,38 +42,37 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-    <div className="App">
-      <Box sx={{ flexGrow: 1 }}>
-        <Drawer anchor="left" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
-          <Box p={2} role="presentation" >
-            Schedule
+      
+      <div className="App">
+        <Router>
+          <Box sx={{ flexGrow: 1 }}>
+            <Drawer anchor="left" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
+              <Box p={2} role="presentation" >
+                Schedule
+              </Box>
+            </Drawer>
+            <AppBar position="static">
+              <Toolbar>
+                <Sidebar />
+                <Box sx={{margin: "10px"}}>
+                  <FontAwesomeIcon icon={faDroplet}/>
+                </Box>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                Sprinkler UI
+                </Typography>
+              </Toolbar>
+            </AppBar>
           </Box>
-        </Drawer>
-        <AppBar position="static">
-          <Toolbar>
-            {/* <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-              onClick={() => setIsDrawerOpen(true)}
-            > 
-              <MenuIcon />
-            </IconButton> */}
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Sprinkler UI
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </Box>
-      <Router>
-          <Switch>
-            <Route path="/" exact component={Schedule} />
-            <Route path="/manual" exact component={ControlPanel} />
-            <Route path="/schedule" exact component={Schedule} />
-          </Switch>
-      </Router>
-    </div>
+        
+          <Routes>
+            <Route path="/" element={<Schedule />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/manual" element={<Manual />} />
+            <Route path="/run-once" element={<RunOnce />} />
+            <Route path="/schedule" element={<Schedule />} />
+          </Routes>
+        </Router>
+      </div>
     </ThemeProvider>
   );
 }

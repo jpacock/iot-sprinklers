@@ -5,18 +5,25 @@ import axios from 'axios';
 import { omit } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
-import { IProgram } from '../../../../shared';
-import ScheduleItem from '../../components/ScheduleItem/ScheduleItem';
-import { getConfig } from '../../config/get-config';
-import ScheduleItemEditor from "../../components/ScheduleItemEditor/ScheduleItemEditor";
+import { IProgram } from '../../../shared/build';
+import { AddScheduleItemOverlay } from "../components/AddScheduleItemOverlay/AddScheduleItemOverlay";
+import ScheduleItem from '../components/ScheduleItem/ScheduleItem';
+import ScheduleItemEditor from "../components/ScheduleItemEditor/ScheduleItemEditor";
+import { getConfig } from '../config/get-config';
 
 const { sprinklerServiceUrl } = getConfig();
 
-export default function Schedule() {
+export const Schedule = () => {
   const [list, setList]: any[] = useState([]);
+  const [addScheduleItemOverlayOpen, setAddScheduleItemOverlayOpen] = useState(false);
   const [editorOpen, setEditorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState(''); 
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = React.useState("");
+
+  useEffect(() => {
+    console.log(selectedValue);
+  }, [selectedValue]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,11 +108,15 @@ export default function Schedule() {
           message={errorMessage}
           action={action}
         />
-        <Fab color="primary" aria-label="add" sx={{ position: 'absolute', bottom: 30, right: 30 }} onClick={() => setEditorOpen(true)}>
+        {/* <Fab color="primary" aria-label="add" sx={{ position: 'absolute', bottom: 30, right: 30 }} onClick={() => setEditorOpen(true)}>
+          <AddIcon />
+        </Fab> */}
+        <Fab color="primary" aria-label="add" sx={{ position: 'absolute', bottom: 30, right: 30 }} onClick={() => setAddScheduleItemOverlayOpen(true)}>
           <AddIcon />
         </Fab>
       </Container>
       <ScheduleItemEditor open={editorOpen} closeDialog={handleClose} saveProgram={handleAddProgram}/>
+      <AddScheduleItemOverlay onClose={(value: string) => { setAddScheduleItemOverlayOpen(false); setSelectedValue(value)}} open={addScheduleItemOverlayOpen} selectedValue={selectedValue}/>
     </>
   );
 }
