@@ -1,4 +1,4 @@
-import { IProgram } from 'shared';
+import { IProgram } from 'shared/types';
 import { scheduleJob } from 'node-schedule';
 import cron from 'cron-validate';
 

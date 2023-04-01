@@ -4,6 +4,9 @@
     "esModuleInterop": true,
     "outDir": "build",
     // "rootDir": "."
+    "paths": {
+      "shared/*": ["../shared/build/types"]
+    }
   },
   "include": ["./src/**/*", "./node_modules/shared"],
   "references": [{ "path": "../shared" }]

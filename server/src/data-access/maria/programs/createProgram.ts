@@ -1,4 +1,4 @@
-import { IProgramDoc, IProgram } from 'shared';
+import { IProgramDoc, IProgram } from 'shared/types';
 
 import { getDB } from '../MariaDBClientManager';
 

@@ -1,4 +1,4 @@
-import { IUpdateProgramRequest } from 'shared';
+import { IUpdateProgramRequest } from 'shared/types';
 
 import { updateProgram as updateProgramInDb } from '../data-access/maria/programs';
 import { createCronForProgram } from './createCronForProgram';

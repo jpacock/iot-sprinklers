@@ -1,4 +1,4 @@
-import { IRunTime } from 'shared';
+import { IRunTime } from 'shared/types';
 
 import { turnOff } from '../rpi/turnOff';
 
