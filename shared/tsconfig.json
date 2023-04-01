@@ -9,5 +9,5 @@
     "rootDir": "types"
     
   },
-  "include": ["types/**/*"]
+  "include": ["types"]
 }
