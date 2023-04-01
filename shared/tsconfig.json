@@ -6,8 +6,8 @@
     "sourceMap": true,
     "composite": true,
     "outDir": "build",
-    "rootDir": "src"
+    "rootDir": "types"
     
   },
-  "include": ["src"]
+  "include": ["types/**/*"]
 }
