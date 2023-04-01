@@ -1,0 +1,23 @@
+node_modules
+.log
+.nyc_output
+.env
+bin
+coverage
+.DS_Store
+dist
+.tmp
+db/couchdb
+.idea
+
+# ESLint
+.eslintcache
+
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+build

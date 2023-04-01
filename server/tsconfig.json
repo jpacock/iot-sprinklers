@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "outDir": "build",
+    "rootDir": "."
+  },
+  "include": ["src", "node_modules/shared", "node_modules/cors"],
+  "references": [{ "path": "../shared" }]
+}
