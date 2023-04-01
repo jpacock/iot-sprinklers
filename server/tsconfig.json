@@ -3,8 +3,8 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "outDir": "build",
-    "rootDir": "."
+    // "rootDir": "."
   },
-  "include": ["src"],
+  "include": ["./src/**/*", "./node_modules/shared"],
   "references": [{ "path": "../shared" }]
 }

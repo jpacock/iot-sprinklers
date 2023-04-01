@@ -1,4 +1,4 @@
-import { RunTimeUnitType } from 'shared';
+import { RunTimeUnitType } from 'shared/build/RunTimeUnitType';
 
 const SECONDS_PER_MINUTE = 60;
 const ZONE_1_MINUTES_PER_INCH = 100;
