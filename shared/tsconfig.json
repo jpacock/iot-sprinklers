@@ -6,7 +6,7 @@
     "sourceMap": true,
     "composite": true,
     "outDir": "build",
-    "rootDir": "src"
+    "rootDir": "."
     
   },
   "include": ["./src/**/*"]
