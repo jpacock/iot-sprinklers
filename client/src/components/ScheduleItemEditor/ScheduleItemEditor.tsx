@@ -33,7 +33,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
-import { IProgram, RunTimeUnitType } from 'shared/src';
+import { IProgram, RunTimeUnitType } from 'shared/types';
 import './ScheduleItemEditor.scss';
 import { getZoneDurationByUnit } from '../../util/getZoneDurationByUnit';
 

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { omit } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
-import { IProgram } from 'shared/src';
+import { IProgram } from 'shared/types';
 import { AddScheduleItemOverlay } from "../components/AddScheduleItemOverlay/AddScheduleItemOverlay";
 import ScheduleItem from '../components/ScheduleItem/ScheduleItem';
 import ScheduleItemEditor from "../components/ScheduleItemEditor/ScheduleItemEditor";
