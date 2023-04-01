@@ -5,6 +5,6 @@
     "outDir": "build",
     "rootDir": "."
   },
-  "include": ["src", "node_modules/shared", "node_modules/cors"],
+  "include": ["src"],
   "references": [{ "path": "../shared" }]
 }
