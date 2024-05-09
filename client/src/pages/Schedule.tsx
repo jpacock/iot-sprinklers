@@ -22,10 +22,6 @@ export const Schedule = () => {
   const [selectedValue, setSelectedValue] = React.useState("");
 
   useEffect(() => {
-    console.log(selectedValue);
-  }, [selectedValue]);
-
-  useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(`${sprinklerServiceUrl}/program`);
       const programs = response.data as IProgram[];
@@ -108,12 +104,12 @@ export const Schedule = () => {
           message={errorMessage}
           action={action}
         />
-        {/* <Fab color="primary" aria-label="add" sx={{ position: 'absolute', bottom: 30, right: 30 }} onClick={() => setEditorOpen(true)}>
-          <AddIcon />
-        </Fab> */}
-        <Fab color="primary" aria-label="add" sx={{ position: 'absolute', bottom: 30, right: 30 }} onClick={() => setAddScheduleItemOverlayOpen(true)}>
+        <Fab color="primary" aria-label="add" sx={{ position: 'absolute', bottom: 30, right: 30 }} onClick={() => setEditorOpen(true)}>
           <AddIcon />
         </Fab>
+        {/* <Fab color="primary" aria-label="add" sx={{ position: 'absolute', bottom: 30, right: 30 }} onClick={() => setAddScheduleItemOverlayOpen(true)}>
+          <AddIcon />
+        </Fab> */}
       </Container>
       <ScheduleItemEditor open={editorOpen} closeDialog={handleClose} saveProgram={handleAddProgram}/>
       <AddScheduleItemOverlay onClose={(value: string) => { setAddScheduleItemOverlayOpen(false); setSelectedValue(value)}} open={addScheduleItemOverlayOpen} selectedValue={selectedValue}/>

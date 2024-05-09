@@ -1,6 +1,6 @@
 export function getConfig() {
   return {
-    // sprinklerServiceUrl: 'http://136.37.159.219:3000',
-    sprinklerServiceUrl: 'http://192.168.86.201:3000',
+    sprinklerServiceUrl: 'http://68.97.156.126:3000',
+    // sprinklerServiceUrl: 'http://192.168.86.201:3000',
   }
 }

@@ -44,7 +44,7 @@ function App() {
     <ThemeProvider theme={theme}>
       
       <div className="App">
-        <Router>
+        <Router basename="/sprinkler">
           <Box sx={{ flexGrow: 1 }}>
             <Drawer anchor="left" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
               <Box p={2} role="presentation" >

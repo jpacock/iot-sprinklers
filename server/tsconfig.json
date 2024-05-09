@@ -4,11 +4,11 @@
     "esModuleInterop": true,
     "module": "commonjs",
     "outDir": "build",
-    // "rootDir": "."
+    "target": "ES5",
     "paths": {
-      "shared/*": ["../shared/build/types"]
+      "shared/*": ["../shared/build"]
     }
   },
-  "include": ["./src/**/*", "./node_modules/shared"],
-  "references": [{ "path": "../shared" }]
+  "include": ["src/**/*", "node_modules/shared"],
+  // "references": [{ "path": "../shared" }]
 }

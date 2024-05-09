@@ -290,6 +290,7 @@ export default function ScheduleItemEditor({
                               <MenuItem value={'2'}>Zone 2</MenuItem>
                               <MenuItem value={'3'}>Zone 3</MenuItem>
                               <MenuItem value={'4'}>Zone 4</MenuItem>
+                              <MenuItem value={'5'}>Zone 5</MenuItem>
                             </Select>
                           </FormControl>
                         </Box>

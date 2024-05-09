@@ -1,7 +1,8 @@
 import cors from 'cors';
 import cron from 'cron-validate';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import createError from 'http-errors';
+import * as jwt from 'jsonwebtoken';
 
 import { ICreateProgramRequest, IUpdateProgramRequest } from 'shared/types';
 
@@ -21,9 +22,49 @@ const main = async () => {
   server.use(cors());
   server.use(express.json());
 
-  const existingPrograms = await getPrograms();
+  // const existingPrograms = await getPrograms();
 
-  existingPrograms.forEach((program) => createCronForProgram(program));
+  // existingPrograms.forEach((program) => createCronForProgram(program));
+
+  const users = [
+    { id: 1, username: 'jordan', password: 'acock' },
+  ];
+
+  const secretKey = '1234-asdf-1234-asdf';
+  const baseRoute = '/sprinkler/api';
+
+  // eslint-disable-next-line consistent-return
+  server.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    console.log(username, password);
+    const user = users.find((u) => u.username === username && u.password === password);
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
+
+    res.json({ token });
+  });
+
+  // eslint-disable-next-line consistent-return
+  server.get('/protected', (req: Request, res: Response) => {
+    const token: string | undefined = req.headers.authorization?.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({ message: 'No token provided' });
+    }
+
+    try {
+      // Verify JWT token
+      const decoded: any = jwt.verify(token, secretKey);
+      res.json({ message: 'Protected route', user: decoded.userId });
+    } catch (error) {
+      res.status(401).json({ message: 'Invalid token' });
+    }
+  });
 
   // Create program //
   server.post('/program', async (req, res, next) => {
@@ -78,7 +119,7 @@ const main = async () => {
   });
 
   // Get Zone Status //
-  server.get('/status/', (req, res) => {
+  server.get(`${baseRoute}/status`, (_, res) => {
     res.status(200).send(getStatus());
   });
 

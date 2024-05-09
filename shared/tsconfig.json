@@ -1,16 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "outDir": "build",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
     "module": "commonjs",
     "declaration": true,
-    "composite": true,
-    "lib": [
-      "dom",
-      "es2015",
-      "es2016",
-      "es2017"
-    ],
-    "outDir": "./build",
-    "strict": true
-  }
+    "importHelpers": true,
+    "inlineSources": true,
+    "inlineSourceMap": true,
+    "types": ["node", "jest"],
+    "skipLibCheck": true,
+    "esModuleInterop": true
+  },
+  "exclude": ["example", "build", "node_modules", "scripts", "**/__mocks__/*"]
 }
