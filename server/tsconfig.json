@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "module": "commonjs",
     "outDir": "build",
     // "rootDir": "."
     "paths": {
