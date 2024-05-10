@@ -31,7 +31,6 @@ const main = async () => {
   ];
 
   const secretKey = '1234-asdf-1234-asdf';
-  const baseRoute = '/sprinkler/api';
 
   // eslint-disable-next-line consistent-return
   server.post('/login', (req, res) => {
@@ -119,7 +118,7 @@ const main = async () => {
   });
 
   // Get Zone Status //
-  server.get(`${baseRoute}/status`, (_, res) => {
+  server.get('/status', (_, res) => {
     res.status(200).send(getStatus());
   });
 
@@ -142,10 +141,11 @@ const main = async () => {
   });
 
   // Error handler //
-  server.use((error: any, _: any, res: any, next: any) => {
+  server.use((error: any, req: Request, res: any, next: any) => {
     res.status(error.status).send({
       code: error.status,
       message: error.message,
+      route: req.url,
     });
     next();
   });
